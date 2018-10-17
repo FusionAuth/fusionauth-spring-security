@@ -15,7 +15,6 @@ import static java.util.Arrays.asList;
 /**
  * @author Tyler Scott
  */
-
 @Configuration
 @EnableOAuth2Client
 public class FusionAuthOpenIdConnectConfig {

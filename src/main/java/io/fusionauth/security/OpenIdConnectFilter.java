@@ -42,7 +42,6 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
         OAuth2AccessToken accessToken;
         try {
             accessToken = restTemplate.getAccessToken();
@@ -51,7 +50,6 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
         }
         try {
             FusionAuthUserDetails user = new FusionAuthUserDetails(getUserInfo(accessToken), accessToken);
-
             return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
         } catch (Exception e) {
             throw new BadCredentialsException("Failed to validate the token", e);
@@ -67,14 +65,12 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
         headers.set("Authorization", "Bearer " + accessToken.getValue());
 
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-
         ResponseEntity<String> response = new RestTemplate().exchange(userInfoUri, HttpMethod.GET, httpEntity, String.class);
 
         return new ObjectMapper().readTree(response.getBody());
     }
 
     private static class NoopAuthenticationManager implements AuthenticationManager {
-
         @Override
         public Authentication authenticate(Authentication authentication) throws AuthenticationException {
             throw new UnsupportedOperationException("No authentication should be done with this AuthenticationManager");

@@ -8,7 +8,6 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -17,13 +16,13 @@ import java.util.stream.Collectors;
 public class FusionAuthUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L;
 
+    public OAuth2AccessToken token;
+
     public String userId;
 
     public String username;
 
     private List<String> roles;
-
-    public OAuth2AccessToken token;
 
     public FusionAuthUserDetails(JsonNode claims, OAuth2AccessToken token) {
         userId = claims.get("sub").asText();
