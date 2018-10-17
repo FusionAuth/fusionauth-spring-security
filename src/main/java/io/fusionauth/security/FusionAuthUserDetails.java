@@ -6,9 +6,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Tyler Scott
@@ -16,24 +16,31 @@ import java.util.stream.Collectors;
 public class FusionAuthUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L;
 
+    public JsonNode claims;
+
     public OAuth2AccessToken token;
 
     public String userId;
 
     public String username;
 
-    private List<String> roles;
+    private List<SimpleGrantedAuthority> roles = new ArrayList<>();
 
     public FusionAuthUserDetails(JsonNode claims, OAuth2AccessToken token) {
         userId = claims.get("sub").asText();
         username = claims.get("email").asText();
-        roles = claims.findValuesAsText("roles");
+        List<String> roles = claims.findValuesAsText("roles");
+        for (String role : roles) {
+            this.roles.add(new SimpleGrantedAuthority(role));
+        }
+
+        this.claims = claims;
         this.token = token;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return roles;
     }
 
     @Override

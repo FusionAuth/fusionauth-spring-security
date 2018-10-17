@@ -3,10 +3,7 @@ package io.fusionauth.security;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -66,8 +63,12 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
 
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
         ResponseEntity<String> response = new RestTemplate().exchange(userInfoUri, HttpMethod.GET, httpEntity, String.class);
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return new ObjectMapper().readTree(response.getBody());
+        }
 
-        return new ObjectMapper().readTree(response.getBody());
+        throw new BadCredentialsException("Failed to request user details from the UserInfo API. " +
+                "Status code [" + response.getStatusCodeValue() + "] Message [" + response.getBody() + "]");
     }
 
     private static class NoopAuthenticationManager implements AuthenticationManager {
