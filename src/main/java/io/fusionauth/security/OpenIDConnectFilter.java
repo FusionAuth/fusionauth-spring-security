@@ -2,7 +2,7 @@ package io.fusionauth.security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,16 +23,13 @@ import java.io.IOException;
 /**
  * @author Tyler Scott
  */
-public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter {
-    @Value("${fusionAuth.clientId}")
-    private String clientId;
-
+public class OpenIDConnectFilter extends AbstractAuthenticationProcessingFilter {
     private OAuth2RestOperations restTemplate;
 
-    @Value("${fusionAuth.userInfoUri}")
-    private String userInfoUri;
+    @Autowired
+    private OpenIDAuthorizationCodeResourceDetails openIDResourceDetails;
 
-    public OpenIdConnectFilter(String defaultFilterProcessesUrl) {
+    public OpenIDConnectFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
         setAuthenticationManager(new NoopAuthenticationManager());
     }
@@ -62,7 +59,7 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
         headers.set("Authorization", "Bearer " + accessToken.getValue());
 
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = new RestTemplate().exchange(userInfoUri, HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<String> response = new RestTemplate().exchange(openIDResourceDetails.getUserInfoUri(), HttpMethod.GET, httpEntity, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             return new ObjectMapper().readTree(response.getBody());
         }

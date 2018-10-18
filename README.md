@@ -1,18 +1,7 @@
-FusionAuth Spring Security Example
+FusionAuth Spring Security
 ====
-A quick and easy example of how to use [OpenId Connect](https://openid.net/connect/) to integrate a spring application with [FusionAuth](https://fusionauth.io).
 
-Usage
-----
-
-- TODO Setup fusion auth and get client id and secret
-- Copy `application-example.properties` to `application.properties`
-- Modify the urls to match the urls of your fusion auth application. (It can run locally)
-- Once you have your client id and secret, make sure you add them to the `application.properties` of the project
-
-```
-mvn spring-boot:run
-```
+This library provides an OpenID implementation for FusionAuth and Spring Security.
 
 License
 ----
