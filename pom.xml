@@ -6,7 +6,7 @@
 
     <groupId>io.fusionauth</groupId>
     <artifactId>fusionauth-spring-security</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>FusionAuth Spring Security</name>
