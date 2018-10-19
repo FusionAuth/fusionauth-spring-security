@@ -29,9 +29,9 @@ public class FusionAuthUserDetails implements UserDetails {
     public FusionAuthUserDetails(JsonNode claims, OAuth2AccessToken token) {
         userId = claims.get("sub").asText();
         username = claims.get("email").asText();
-        List<String> roles = claims.findValuesAsText("roles");
-        for (String role : roles) {
-            this.roles.add(new SimpleGrantedAuthority(role));
+        if (claims.has("roles") && claims.get("roles").isArray())
+        for (JsonNode role : claims.get("roles")) {
+            this.roles.add(new SimpleGrantedAuthority(role.asText()));
         }
 
         this.claims = claims;
