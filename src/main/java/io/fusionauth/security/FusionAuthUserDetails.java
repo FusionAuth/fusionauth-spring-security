@@ -14,64 +14,65 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
  * @author Tyler Scott
  */
 public class FusionAuthUserDetails implements UserDetails {
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public JsonNode claims;
+  public JsonNode claims;
 
-    public OAuth2AccessToken token;
+  public OAuth2AccessToken token;
 
-    public String userId;
+  public String userId;
 
-    public String username;
+  public String username;
 
-    private List<SimpleGrantedAuthority> roles = new ArrayList<>();
+  private List<SimpleGrantedAuthority> roles = new ArrayList<>();
 
-    public FusionAuthUserDetails(JsonNode claims, OAuth2AccessToken token) {
-        userId = claims.get("sub").asText();
-      if (claims.has("email")) {
-        username = claims.get("email").asText();
+  public FusionAuthUserDetails(JsonNode claims, OAuth2AccessToken token) {
+    userId = claims.get("sub").asText();
+    if (claims.has("email")) {
+      username = claims.get("email").asText();
+    }
+    if (claims.has("roles") && claims.get("roles").isArray()) {
+      for (JsonNode role : claims.get("roles")) {
+        this.roles.add(new SimpleGrantedAuthority(role.asText()));
       }
-        if (claims.has("roles") && claims.get("roles").isArray())
-        for (JsonNode role : claims.get("roles")) {
-            this.roles.add(new SimpleGrantedAuthority(role.asText()));
-        }
-
-        this.claims = claims;
-        this.token = token;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
-    }
+    this.claims = claims;
+    this.token = token;
+  }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return roles;
+  }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+  @Override
+  public String getPassword() {
+    return null;
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+  @Override
+  public String getUsername() {
+    return username;
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }

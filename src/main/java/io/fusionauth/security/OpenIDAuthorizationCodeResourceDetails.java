@@ -8,14 +8,14 @@ import org.springframework.security.oauth2.client.token.grant.code.Authorization
  * @author Tyler Scott
  */
 public class OpenIDAuthorizationCodeResourceDetails extends AuthorizationCodeResourceDetails {
-    private String userInfoUri;
+  private String userInfoUri;
 
-    public String getUserInfoUri() {
-        return userInfoUri;
-    }
+  public String getUserInfoUri() {
+    return userInfoUri;
+  }
 
-    public void settUserInfoUri(String userInfoUri) {
-        this.userInfoUri = userInfoUri;
-    }
+  public void settUserInfoUri(String userInfoUri) {
+    this.userInfoUri = userInfoUri;
+  }
 
 }
