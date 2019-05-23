@@ -6,7 +6,7 @@
 
     <groupId>io.fusionauth</groupId>
     <artifactId>fusionauth-spring-security</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>FusionAuth Spring Security</name>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.6</version>
+            <version>2.9.9</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

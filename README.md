@@ -8,7 +8,7 @@ This library provides an OpenID implementation for FusionAuth and Spring Securit
 <dependency>
   <groupId>io.fusionauth</groupId>
   <artifactId>fusionauth-spring-security</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 ```
 
