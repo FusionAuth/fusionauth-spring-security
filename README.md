@@ -1,14 +1,14 @@
 FusionAuth Spring Security
 ====
 
-This library provides an OpenID implementation for FusionAuth and Spring Security.
+This library provides an OpenID Connect implementation for FusionAuth and Spring Security.
 
 ## Maven 
 ```xml
 <dependency>
   <groupId>io.fusionauth</groupId>
   <artifactId>fusionauth-spring-security</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
 </dependency>
 ```
 
