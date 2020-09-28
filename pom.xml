@@ -6,11 +6,11 @@
 
     <groupId>io.fusionauth</groupId>
     <artifactId>fusionauth-spring-security</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
 
     <name>FusionAuth Spring Security</name>
-    <description>An OpenID implementation in Spring Security that may be used with FusionAuth.</description>
+    <description>An OpenID Connect implementation in Spring Security that may be used with FusionAuth.</description>
     <url>https://github.com/FusionAuth/fusionauth-spring-security</url>
 
     <distributionManagement>
@@ -27,7 +27,11 @@
     <developers>
         <developer>
             <name>Tyler Scott</name>
-            <email>tyler@fusionauth.io</email>
+            <organization>FusionAuth</organization>
+            <organizationUrl>https://fusionauth.io</organizationUrl>
+        </developer>
+        <developer>
+            <name>Daniel DeGroff</name>
             <organization>FusionAuth</organization>
             <organizationUrl>https://fusionauth.io</organizationUrl>
         </developer>
